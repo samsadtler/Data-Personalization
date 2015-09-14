@@ -1,6 +1,6 @@
 function init() {
 	getLocation();
-
+	window.addEventListener('onscroll', transitions());
 }
 
 
@@ -85,7 +85,8 @@ function getTheWeatherAPI(location, lat, lon){
 }
 function doINeedAnUmbrella(location, status, temp, chance){
 	var icon;
-	var answerOut;
+	var shortAnswer;
+	var longAnswer;
 	var outcome;
 	var answerArray;
 	$.ajax({
@@ -95,7 +96,7 @@ function doINeedAnUmbrella(location, status, temp, chance){
 	    	return console.log ("There was an issue getting the data");
 	    },
 	    success: function(response) {
-	    	console.log('the response from our JSON is -- >');
+	    	console.log('the response from answers.json is -- >');
 	    	console.log(response);
 			if (chance <= .20) {
 				outcome = response.answer.lowest;
@@ -114,11 +115,10 @@ function doINeedAnUmbrella(location, status, temp, chance){
 			}
 			answerArray = outcome.response;
 			icon = outcome.icon;
-			console.log("answerArray = " + answerArray);
-
-			answerOut = answerArray[getRandomInt(0, answerArray.length)]
-
-			return addCard(location, status, temp, icon, answerOut)
+			shortAnswer = answerArray[0];
+			longAnswer = answerArray[getRandomInt(1, answerArray.length)]
+			console.log("random value = " + getRandomInt(1, answerArray.length) + " and Array length " + answerArray.length + " and answerArray[0] = " + answerArray[0]);
+			return addCard(location, status, temp, icon, shortAnswer, longAnswer)
 			}
 	});
 
@@ -127,18 +127,27 @@ function doINeedAnUmbrella(location, status, temp, chance){
 	
 }
 
-function addCard(location, status, temp, icon, answer){
+function addCard(location, status, temp, icon, shortAnswer, longAnswer){
 
 	var htmlToAppend = 
-	'<div class="card-container col-md-6 centered">'+
+	'<div class="card-container col-md-12 centered">'+
 		'<div class="card">'+
 		  '<img src="img/'+icon+'.png">'+
-		    '<h1>'+answer+'</h1>'+
+		    '<h1>'+shortAnswer+'</h1>'+
+		    '<h1>'+longAnswer+'</h1>'+
 	  '</div>'+
 	'</div>';
 
   return $('#card-holder').append(htmlToAppend);
 }
+
+function transitions(){
+	
+	
+	$('.card h2').css('color','green');
+	console.log('let me see those sweet sweet transitions');
+}
+
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -147,3 +156,7 @@ document.getElementById('theInput').addEventListener('change', getWeather);
 
 // on page load, let's get the user's location from the browser
 window.addEventListener('onload', init());
+
+
+
+

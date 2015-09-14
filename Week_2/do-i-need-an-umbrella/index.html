@@ -4,14 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Weather Dashboard</title>
+    <title>You Might Be Asking:</title>
 
     <!-- Custom Font -->
     <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -24,18 +25,30 @@
     <![endif]-->
   </head>
   <body>
-<div class="container">
-  
-  <div class="row">
-    <div class="col-md-12 centered">
-      <input id="theInput" placeholder="Type to Add a Location to the Dashboard" autofocus>
+    <div class="container-fluid">   
+      <div class="row">
+        <div class="col-md-12 centered header lead">
+          <h1> Do I need an umbrella? </h1>
+        </div>
+      </div>
+      <div class="row short-answer"> 
+      <div class="row" id="card-holder"></div>
+      <ul class="down-arrow">
+        <li>
+            <i class="fa fa-chevron-down"></i>
+        </li>
+
+      </ul>
+ 
+      <div class="row">
+        <ul class="col-md-12 fixed-footer">
+          <li>
+            <input id="theInput" placeholder="where might you want an umbrella" autofocus>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-
-  <div class="row" id="card-holder"> 
-  </div>
-
-</div>
+    </div>
   </body>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

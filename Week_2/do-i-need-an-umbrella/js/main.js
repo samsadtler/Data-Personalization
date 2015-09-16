@@ -13,6 +13,7 @@ function getLocation() {
         	var lon = position.coords.longitude;
         	console.log(lat + ' ' + lon);
         	getTheWeatherAPI("Current Location", lat, lon);
+        	// geoCodeIt();
         });
     } else {
         return alert("Geolocation is not supported by this browser.");
@@ -20,18 +21,18 @@ function getLocation() {
 }
 
 
-function getWeather(event){
+// function getWeather(event){
 
-	var val = document.getElementById('theInput').value;
-	// if there is no value, or it is an empty string, prompt the user
-	if(!val || val=="") return alert("Enter a Location");
-	console.log("the value is " + val);	
-	// else, need to geocode it 
-	geoCodeIt(val)
-}
+// 	var val = document.getElementById('theInput').value;
+// 	// if there is no value, or it is an empty string, prompt the user
+// 	if(!val || val=="") return alert("Enter a Location");
+// 	console.log("the value is " + val);	
+// 	// else, need to geocode it 
+// 	geoCodeIt(val)
+// }
 
 function geoCodeIt(location){
-
+	console.log("geoCodeIt");
 	var apiKey = 'AIzaSyCIxywgknotMlV6Kjqn-HbJgQBkSAMPOlU';
 
 	// make a request to geocode the location
@@ -75,7 +76,7 @@ function getTheWeatherAPI(location, lat, lon){
 	      var chance = response.daily.data[0].precipProbability;
 
 	      // reset the input value
-	      document.getElementById("theInput").value = '';
+	      // document.getElementById("theInput").value = '';
 	      console.log("Got the chance " + chance);
 	      // add the card
 	      return doINeedAnUmbrella(location, status, temp, chance);
@@ -130,7 +131,7 @@ function doINeedAnUmbrella(location, status, temp, chance){
 function addCard(location, status, temp, icon, shortAnswer, longAnswer){
 
 	var htmlToAppend = 
-	'<div class="card-container col-md-12 centered">'+
+	'<div class="card-container col-sx- centered">'+
 		'<div class="card">'+
 		  '<img src="img/'+icon+'.png">'+
 		    '<h1>'+shortAnswer+'</h1>'+
@@ -152,7 +153,7 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 // on change of theInput field, lets run the script to get the weather
-document.getElementById('theInput').addEventListener('change', getWeather);
+// document.getElementById('theInput').addEventListener('change', getWeather);
 
 // on page load, let's get the user's location from the browser
 window.addEventListener('onload', init());

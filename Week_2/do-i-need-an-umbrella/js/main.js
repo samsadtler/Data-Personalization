@@ -1,5 +1,9 @@
 function init() {
 	getLocation();
+	setHeight();
+	function setHeight() {
+		$('#main-container').height(window.innerHeight);
+	}
 	window.addEventListener('onscroll', transitions());
 }
 
@@ -121,43 +125,34 @@ function doINeedAnUmbrella(location, status, temp, chance){
 			console.log("random value = " + getRandomInt(1, answerArray.length) + " and Array length " + answerArray.length + " and answerArray[0] = " + answerArray[0]);
 			return addCard(location, status, temp, icon, shortAnswer, longAnswer)
 			}
-	});
-
-
-
-	
+	});	
 }
 
 function addCard(location, status, temp, icon, shortAnswer, longAnswer){
 
+
+	$('.short-answer').text(shortAnswer);
+	var chevronToAppend = 
+		'<ul class="down-arrow col-sx- centered">'+
+          '<li>'+
+              '<i class=" fa fa-chevron-down" >'+'</i>'+
+          '</li>'+
+        '</ul>';
+    $('.arrow').append(chevronToAppend);   
 	var htmlToAppend = 
 	'<div class="card-container col-sx- centered">'+
 		'<div class="card">'+
-		  '<img src="img/'+icon+'.png">'+
-		    '<h1>'+shortAnswer+'</h1>'+
+		        '<img src="img/'+icon+'">'+
 		    '<h1>'+longAnswer+'</h1>'+
 	  '</div>'+
 	'</div>';
-
-  return $('#card-holder').append(htmlToAppend);
-}
-
-function transitions(){
-	
-	
-	$('.card h2').css('color','green');
-	console.log('let me see those sweet sweet transitions');
+	// parallaxInit();
+	$('.card-holder').append(htmlToAppend);
 }
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
-// on change of theInput field, lets run the script to get the weather
-// document.getElementById('theInput').addEventListener('change', getWeather);
-
 // on page load, let's get the user's location from the browser
 window.addEventListener('onload', init());
-
-
-
 

@@ -4,10 +4,52 @@ function init() {
 	function setHeight() {
 		$('#main-container').height(window.innerHeight);
 	}
-	window.addEventListener('onscroll', transitions());
+	window.addEventListener('scroll', fadeEvent());
+
+	window.addEventListener("scroll", function(event) {
+  		var	arrowToFade = document.querySelector(".arrow");
+  		var	elementToFade = document.querySelector(".question");
+  		var cardToFade = document.querySelector(".card-holder");
+  		var topMax = 30;
+	    var top = this.scrollY,
+	        left = this.scrollX;
+	  	
+ 		var opacity = top/topMax;
+ 		// if (opacity < 1) {
+	  // 		$(arrowToFade).fadeTo('fast',opacity);
+	  // 		$(elementToFade).fadeTo('fast',opacity);
+	  // 		$(cardToFade).fadeTo('fast',1/opacity);
+  	// 	} else {
+  	// 		$(arrowToFade).fadeTo('fast', 0);
+	  // 		$(elementToFade).fadeTo('fast', 0);
+	  // 		$(cardToFade).fadeTo('fast', 1/opacity);
+  	// 	}
+
+	  	if (top >=  10 && top < 20){
+	  		$(arrowToFade).fadeTo('fast',0.5);
+	  		$(elementToFade).fadeTo('fast',0.5);
+	  		$(cardToFade).fadeTo('fast',0.5);
+		} 
+		 if (top >=  20 ){
+	  		$(arrowToFade).fadeTo('fast',0);
+	  		$(elementToFade).fadeTo('fast',0);
+	  		$(cardToFade).fadeTo('fast',1);
+		} 
+		else {
+			console.log("top = " + top);
+			$(arrowToFade).fadeTo('fast',1);
+			$(elementToFade).fadeTo('fast',1);
+	  		$(cardToFade).fadeTo('fast',0);
+		}
+	  
+	}, false);
+
 }
 
+function fadeEvent(event) {
+	
 
+}
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -146,7 +188,6 @@ function addCard(location, status, temp, icon, shortAnswer, longAnswer){
 		    '<h1>'+longAnswer+'</h1>'+
 	  '</div>'+
 	'</div>';
-	// parallaxInit();
 	$('.card-holder').append(htmlToAppend);
 }
 

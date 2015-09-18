@@ -1,6 +1,7 @@
 function init() {
 	getLocation();
 	setHeight();
+	var opacityVal = 1;
 	function setHeight() {
 		$('#main-container').height(window.innerHeight);
 	}
@@ -13,9 +14,10 @@ function init() {
   		var topMax = 40;
 	    var top = this.scrollY,
 	        left = this.scrollX;
- 		var opacityVal = topMax/top;
+ 		opacityVal = top/topMax;
  		console.log("scroll value = " + top);
- 		if (opacityVal > 0 && opacityVal < 1){
+ 		console.log("opacity value = " + opacityVal);
+ 		if (opacityVal > .1 && opacityVal < 1){
 	  		arrowToFade.style.opacity = opacityVal;
 	  		elementToFade.style.opacity = opacityVal;
 	  		cardToFade.style.opacity = 1/opacityVal;
@@ -30,7 +32,7 @@ function init() {
 	  		elementToFade.style.opacity = 1.0;
 	  		cardToFade.style.opacity = 0.0;
 	  	}
-	  	
+
 	}, false);
 
 }

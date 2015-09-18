@@ -4,44 +4,33 @@ function init() {
 	function setHeight() {
 		$('#main-container').height(window.innerHeight);
 	}
-	window.addEventListener('scroll', fadeEvent());
+	// window.addEventListener('scroll', fadeEvent());
 
 	window.addEventListener("scroll", function(event) {
   		var	arrowToFade = document.querySelector(".arrow");
   		var	elementToFade = document.querySelector(".question");
   		var cardToFade = document.querySelector(".card-holder");
-  		var topMax = 30;
+  		var topMax = 40;
 	    var top = this.scrollY,
 	        left = this.scrollX;
+ 		var opacityVal = topMax/top;
+ 		console.log("scroll value = " + top);
+ 		if (opacityVal > 0 && opacityVal < 1){
+	  		arrowToFade.style.opacity = opacityVal;
+	  		elementToFade.style.opacity = opacityVal;
+	  		cardToFade.style.opacity = 1/opacityVal;
+	  	} 
+	  	if (opacityVal >= 1){
+	  		arrowToFade.style.opacity = 0.0;
+	  		elementToFade.style.opacity = 0.0;
+	  		cardToFade.style.opacity = 1.0;
+	  	} 
+	  	else {
+	  		arrowToFade.style.opacity = 1.0;
+	  		elementToFade.style.opacity = 1.0;
+	  		cardToFade.style.opacity = 0.0;
+	  	}
 	  	
- 		var opacity = top/topMax;
- 		// if (opacity < 1) {
-	  // 		$(arrowToFade).fadeTo('fast',opacity);
-	  // 		$(elementToFade).fadeTo('fast',opacity);
-	  // 		$(cardToFade).fadeTo('fast',1/opacity);
-  	// 	} else {
-  	// 		$(arrowToFade).fadeTo('fast', 0);
-	  // 		$(elementToFade).fadeTo('fast', 0);
-	  // 		$(cardToFade).fadeTo('fast', 1/opacity);
-  	// 	}
-
-	  	if (top >=  10 && top < 20){
-	  		$(arrowToFade).fadeTo('fast',0.5);
-	  		$(elementToFade).fadeTo('fast',0.5);
-	  		$(cardToFade).fadeTo('fast',0.5);
-		} 
-		 if (top >=  20 ){
-	  		$(arrowToFade).fadeTo('fast',0);
-	  		$(elementToFade).fadeTo('fast',0);
-	  		$(cardToFade).fadeTo('fast',1);
-		} 
-		else {
-			console.log("top = " + top);
-			$(arrowToFade).fadeTo('fast',1);
-			$(elementToFade).fadeTo('fast',1);
-	  		$(cardToFade).fadeTo('fast',0);
-		}
-	  
 	}, false);
 
 }
@@ -65,17 +54,6 @@ function getLocation() {
         return alert("Geolocation is not supported by this browser.");
     }
 }
-
-
-// function getWeather(event){
-
-// 	var val = document.getElementById('theInput').value;
-// 	// if there is no value, or it is an empty string, prompt the user
-// 	if(!val || val=="") return alert("Enter a Location");
-// 	console.log("the value is " + val);	
-// 	// else, need to geocode it 
-// 	geoCodeIt(val)
-// }
 
 function geoCodeIt(location){
 	console.log("geoCodeIt");

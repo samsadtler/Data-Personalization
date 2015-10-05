@@ -6,7 +6,7 @@ function init() {
       '<div class="col-xs-11">'+
        ' <ul>'+
          ' <li>'+
-            '<input id="input-link" placeholder="enter a website you want to keep" >'+
+            '<input id="input-link" placeholder="Enter a website you want to keep!" >'+
           '</li>'+
         '</ul>'+
       '</div>'+

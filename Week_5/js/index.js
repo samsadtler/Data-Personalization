@@ -34,9 +34,13 @@ function getTheInput(event){
 function addCard(link){
   this.link = link;
   var htmlToAppend = 
-        '<div class="circle">'+
-          '<a href="'+this.link+'">'+
-          '</a>'+
+        '<div class="circle-outer">'+
+          '<div class="circle-outer-inner">'+
+            '<div class="circle">'+
+              '<a href="'+this.link+'">'+
+              '</a>'+
+            '</div>'+
+          '</div>'+    
         '</div>';
   console.log("card added to main page");
   return $('.trails').prepend(htmlToAppend);

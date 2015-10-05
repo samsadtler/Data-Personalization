@@ -63,15 +63,39 @@ a{
 }
 
 .circle {
-	float: center;
-	width: 10px;
-	height: 10px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 2px;
+    height: 2px;
+    background: #6C7A89;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    padding: 5px;
+}
+.circle-outer {
+	float: right;
+	width: 26px;
+	height: 26px;
 	background: #6C7A89;
 	-moz-border-radius: 50px;
 	-webkit-border-radius: 50px;
 	border-radius: 50px;
 	padding: 10px;
 }
+.circle-outer-inner {
+	position: relative;
+    right: 7px;
+    top: -7px;
+    width: 19px;
+    height: 19px;
+    background: #03C9A9;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    padding: 10px;
+
 
 .circle a{
 	width: 100px;

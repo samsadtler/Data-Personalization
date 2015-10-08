@@ -7,7 +7,7 @@ function init() {
       '<div class="col-xs-11">'+
        ' <ul>'+
          ' <li>'+
-            '<input id="input-link" placeholder="Enter: url + ** + note" >'+
+            '<input id="input-link" placeholder="Enter: url + ** + note or add a Image Link" >'+
           '</li>'+
         '</ul>'+
       '</div>'+
@@ -31,11 +31,16 @@ function getTheInput(event){
       console.log("the value is " + val);
       var inputArray = val.split('**');
       isImageOk(inputArray[0], inputArray);
-      addMarker(inputArray[0]);
-      document.getElementById('input-link').value = ' ';
+     
+      
   } else{
     console.log('Enter not pressed. event.location = ' + event.which)
   }
+}
+
+function resetInputValue(element){
+  this.element = element;
+  document.getElementById(this.element).value = ' ';
 }
 
 function isImageOk(img, inputArray) {
@@ -52,6 +57,8 @@ function isImageOk(img, inputArray) {
       function(d){
         console.log('its and Imasdkghdflk!!' + self.img);
         addImg(self.img);
+        addMarker(self.inputArray[0]);
+        resetInputValue('input-link');
       }
   });
 }
@@ -59,16 +66,22 @@ function isImageOk(img, inputArray) {
 
 function addNote(linkNote){
  this.linkNote = linkNote;
+ if (this.linkNote.length > 1){
   var note = this.linkNote[1];
   var link = this.linkNote[0];
   console.log("linkNote = " + this.linkNote);
   console.log("note = " + note);
   console.log("link = " + link);
+  addMarker(inputArray[0]);
+  resetInputValue('input-link');
   var htmlToAppend = 
           '<div class="col-xs-4">'+
               '<a href="'+link+'">'+note+'</a>'+
           '</div>';
   return $('.link-note').prepend(htmlToAppend);
+} else {
+   return console.log("waiting for input");
+  }
 }
 
 function addImg(linkImg){
@@ -91,9 +104,8 @@ function addMarker(link){
   if (counter > 0){
     addDash(counter - 1);
   }
-
-
   var htmlToAppend = 
+    '<div class="col-xs-1">'+
       '<div class="circle-outer">'+
         '<div class="circle-outer-inner">'+
           '<div class="circle link-'+counter+'">'+
@@ -101,8 +113,9 @@ function addMarker(link){
               '</a>'+
             '</div>'+
           '</div>'+
-        '</div>'+     
-      '</div>';
+        '</div>'+ 
+      '</div>'+     
+    '</div>';
   console.log("counter = " + counter);
   counter++;
   return $('.trails').prepend(htmlToAppend);

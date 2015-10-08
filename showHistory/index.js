@@ -143,24 +143,24 @@ function buildTypedUrlList(divName) {
 //   console.log("card added to main page");
 //   return $('body').prepend(htmlToAppend);
 // }
-// function click(e) {
-//   console.log
-//   chrome.tabs.executeScript(null,
-//       {code:"document.body.style.backgroundColor='" + e.target.id + "'",
-//       file: "inject.js"
+function click(e) {
+  console.log
+  chrome.tabs.executeScript(null,
+      {code:"document.body.style.backgroundColor='" + e.target.id + "'",
+      file: "inject.js"
 
-//     });
-//   console.log('clicked and style applied');
-//   window.close();
-// }
+    });
+  console.log('clicked and style applied');
+  window.close();
+}
 
-// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-//   if (changeInfo.status == 'complete') {
-//       // Execute some script when the page is fully (DOM) ready
-//       chrome.tabs.executeScript(null, {code:"addCard();"});
-//       console.log('tabCreated');
-//   }
-// });
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  if (changeInfo.status == 'complete') {
+      // Execute some script when the page is fully (DOM) ready
+      chrome.tabs.executeScript(null, {code:"addCard();"});
+      console.log('tabCreated');
+  }
+});
 
 document.addEventListener('DOMContentLoaded', function () {
   buildTypedUrlList("typedUrl_div");

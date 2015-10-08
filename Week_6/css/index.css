@@ -32,6 +32,16 @@ a:focus, a:hover {
 a{
     color: white;
     text-decoration: none;
+    padding-bottom: 10px;
+    box-shadow: 2px;
+}
+
+.marker-link{
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  top: 0px;
+  left: 0px;
 }
 
 input{
@@ -81,8 +91,8 @@ input:focus,
 
 .circle {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: 5px;
+    right: 5px;
     width: 2px;
     height: 2px;
     background: #6C7A89;
@@ -114,10 +124,6 @@ input:focus,
     padding: 10px;
 }
 
-.circle a{
-	width: 100px;
-	height: 100px;	
-}
 
 .cross {
   background: red;

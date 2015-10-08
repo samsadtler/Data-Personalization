@@ -18,6 +18,10 @@ function addCard(){
 }
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  console.log('HERE!');
+  console.log(tabId);
+  console.log(changeInfo);
+  console.log(tab);
   if (changeInfo.status == 'complete') {
       // Execute some script when the page is fully (DOM) ready
       chrome.tabs.executeScript(null, {code:"addCard();"});

@@ -3,16 +3,22 @@ function init() {
   console.log("init")
  
  var htmlToAppend = 
-    '<div class="row">'+
+    '<div class="row ">'+
+      '<div class="span11">'+
       '<div class="col-xs-11">'+
        ' <ul>'+
          ' <li>'+
             '<input id="input-link" placeholder="Enter: url + ** + note or add a Image Link" >'+
           '</li>'+
         '</ul>'+
-      '</div>'+
-      '<div class="col-xs-1 trails">'+
-        '<div class="trails-border">'+
+          '<div class="link-note">'+
+          '</div>'+
+        '</div>'+
+      '</div>'+  
+      '<div class="span1">'+
+        '<div class="col-xs-1 trails">'+
+          '<div class="trails-border">'+
+        '</div>'+
       '</div>'+
     '</div>';
   console.log("card added to main page");
@@ -31,7 +37,7 @@ function getTheInput(event){
       console.log("the value is " + val);
       var inputArray = val.split('**');
       isImageOk(inputArray[0], inputArray);
-     
+      // testImage(inputArray[0], inputArray);
       
   } else{
     console.log('Enter not pressed. event.location = ' + event.which)
@@ -63,6 +69,36 @@ function isImageOk(img, inputArray) {
   });
 }
 
+// function testImage(url, timeout) {
+
+//     timeout = timeout || 50000;
+//     var timedOut = false, timer;
+//     var img = new Image();
+//     var 
+//     img.onerror = img.onabort = function() {
+//         if (!timedOut) {
+//             clearTimeout(timer);
+//             addNote(self.inputArray);
+//         }
+//     };
+//     img.onload = function() {
+//         if (!timedOut) {
+//           clearTimeout(timer);
+//           function(d){
+//             console.log('its and Imasdkghdflk!!' + self.img);
+//             addImg(self.img);
+//             addMarker(url);
+//             resetInputValue('input-link');
+//           }
+//         }
+//     };
+//     img.src = url;
+//     timer = setTimeout(function() {
+//         timedOut = true;
+//         console.log('timedOut')
+//         callback(url, "timeout");
+//     }, timeout); 
+// }
 
 function addNote(linkNote){
  this.linkNote = linkNote;
@@ -75,14 +111,21 @@ function addNote(linkNote){
   addMarker(inputArray[0]);
   resetInputValue('input-link');
   var htmlToAppend = 
-          '<div class="col-xs-4">'+
-              '<a href="'+link+'">'+note+'</a>'+
+          '<div class="col-xs-4 link-'+counter+'">'+
+            '<p>'+
+              '<a href="'+link+'">'+
+                note+
+              '</a>'+
+            '</p>'+
           '</div>';
+          counter++;
   return $('.link-note').prepend(htmlToAppend);
 } else {
    return console.log("waiting for input");
   }
 }
+
+
 
 function addImg(linkImg){
  this.linkImg = linkImg;
@@ -109,7 +152,7 @@ function addMarker(link){
       '<div class="circle-outer">'+
         '<div class="circle-outer-inner">'+
           '<div class="circle link-'+counter+'">'+
-              '<a href="'+this.link+'">'+
+              '<a class="marker-link" href="#link-'+counter+'">'+
               '</a>'+
             '</div>'+
           '</div>'+
@@ -117,7 +160,6 @@ function addMarker(link){
       '</div>'+     
     '</div>';
   console.log("counter = " + counter);
-  counter++;
   return $('.trails').prepend(htmlToAppend);
 }
 

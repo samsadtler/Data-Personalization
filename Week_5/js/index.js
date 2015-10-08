@@ -1,3 +1,4 @@
+var counter = 0;
 function init() {
   console.log("init")
  
@@ -33,20 +34,34 @@ function getTheInput(event){
 
 function addCard(link){
   this.link = link;
+  if (counter > 0){
+    addDash(counter - 1);
+  }
+
+
   var htmlToAppend = 
-        '<div class="circle-outer">'+
-          '<div class="circle-outer-inner">'+
-            '<div class="circle">'+
+      '<div class="circle-outer">'+
+        '<div class="circle-outer-inner">'+
+          '<div class="circle link-'+counter+'">'+
               '<a href="'+this.link+'">'+
               '</a>'+
             '</div>'+
-          '</div>'+    
-        '</div>';
-  console.log("card added to main page");
+          '</div>'+
+        '</div>'+     
+      '</div>';
+  console.log("counter = " + counter);
+  counter++;
   return $('.trails').prepend(htmlToAppend);
 }
 
-
+function addDash(count){
+  this.count = count;
+  var htmlToAppend = 
+    '<div class="linker">'+
+    '</div>';
+    console.log("dash added")
+    return $('.link-'+this.count).prepend(htmlToAppend);
+}
 
 window.addEventListener('onload', init());
 

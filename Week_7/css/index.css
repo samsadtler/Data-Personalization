@@ -16,7 +16,7 @@ body li{
 	padding: 5px;
 	/*box-shadow: 0px 1px 1px #888888;*/
 	list-style-position: inside;
-	list-style-type: none;
+	/*list-style-type: none;*/
 	text-align: center;
 }
 

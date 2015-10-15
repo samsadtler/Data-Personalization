@@ -149,14 +149,15 @@ function addMarker(link){
   }
   var htmlToAppend = 
     '<div class="col-xs-1">'+
-      '<div class="circle-outer">'+
-        '<div class="circle-outer-inner">'+
-          '<div class="circle link-'+counter+'">'+
-              '<a class="marker-link" href="#link-'+counter+'">'+
-              '</a>'+
-            '</div>'+
-          '</div>'+
-        '</div>'+ 
+    '<div class="circle-container">'+
+      // '<div class="circle">'+
+      // '</div>'+
+      // '<div class="circle">'+
+      // '</div>'+
+      '<div id="circle" class=" link-'+counter+'">'+
+          '<a class="marker-link" href="#link-'+counter+'">'+
+          '</a>'+
+      '</div>'+ 
       '</div>'+     
     '</div>';
   console.log("counter = " + counter);

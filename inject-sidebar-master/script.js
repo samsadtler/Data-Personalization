@@ -3,15 +3,6 @@ function handleRequest(request,sender, sendResponse) {
 	if (request.callFunction == "toggleSidebar"){
 		toggleSidebar();
 	}
-	//added for selectin content
-	if (request.method == "getSelection"){
-		console.log('getSelection!')
-      sendResponse({data: window.getSelection().toString()});
-	}
-    else {
-    	console.log('didn\'t get shit');
-      sendResponse({}); 
-    }
 }
 chrome.extension.onRequest.addListener(handleRequest);
 
@@ -28,10 +19,24 @@ function toggleSidebar() {
 		console.log('open the sidebar!')
 		var sidebar = document.createElement('div');
 		sidebar.id = "mySidebar";
-		sidebar.innerHTML = "\
-			<h1>Bello</h1>\
-			World!\
-		";
+		sidebar.innerHTML = '<div class="row ">'+
+      '<div class="span11">'+
+      '<div class="col-xs-11">'+
+       ' <ul>'+
+         ' <li>'+
+            '<input id="input-link" placeholder="Enter: url + ** + note or add a Image Link" >'+
+          '</li>'+
+        '</ul>'+
+          '<div class="link-note">'+
+          '</div>'+
+        '</div>'+
+      '</div>'+  
+      '<div class="span1">'+
+        '<div class="col-xs-1 trails">'+
+          '<div class="trails-border">'+
+        '</div>'+
+      '</div>'+
+    '</div>';
 		sidebar.style.cssText = "\
 			position:fixed;\
 			top:0px;\
@@ -46,24 +51,3 @@ function toggleSidebar() {
 		sidebarOpen = true;
 	}
 }
-// chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-//   // console.log(response.farewell);
-// });
-
-// chrome.runtime.onMessage.addListener(
-//   function(request, sender, sendResponse) {
-//     console.log(sender.tab ?
-//                 "from a content script:" + sender.tab.url :
-//                 "from the extension");
-//     if (request.greeting == "hello")
-//       sendResponse({farewell: "goodbye"});
-//   });
-
-//   var port = chrome.runtime.connect({name: "knockknock"});
-// port.postMessage({joke: "Knock knock"});
-// port.onMessage.addListener(function(msg) {
-//   if (msg.question == "Who's there?")
-//     port.postMessage({answer: "Madame"});
-//   else if (msg.question == "Madame who?")
-//     port.postMessage({answer: "Madame... Bovary"});
-// });

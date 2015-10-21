@@ -10,8 +10,8 @@
 
      "background": {
         "scripts": [ "background.js" ]
+        
     },
-
     "permissions":[ "tabs", "activeTab" ],
 
     "description": "Highlight web text and send it to a new Google Doc",

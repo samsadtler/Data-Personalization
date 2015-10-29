@@ -19,24 +19,11 @@ function toggleSidebar() {
 		console.log('open the sidebar!')
 		var sidebar = document.createElement('div');
 		sidebar.id = "mySidebar";
-		sidebar.innerHTML = '<div class="row ">'+
-      '<div class="span11">'+
-      '<div class="col-xs-11">'+
-       ' <ul>'+
-         ' <li>'+
-            '<input id="input-link" placeholder="Enter: url + ** + note or add a Image Link" >'+
-          '</li>'+
-        '</ul>'+
-          '<div class="link-note">'+
-          '</div>'+
-        '</div>'+
-      '</div>'+  
-      '<div class="span1">'+
-        '<div class="col-xs-1 trails">'+
-          '<div class="trails-border">'+
-        '</div>'+
-      '</div>'+
-    '</div>';
+		sidebar.innerHTML = "\
+			<h1>Bello</h1>\
+			
+			World!\
+		";
 		sidebar.style.cssText = "\
 			position:fixed;\
 			top:0px;\

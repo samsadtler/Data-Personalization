@@ -1,0 +1,43 @@
+{
+    "name": "Context Expander",
+    "version": "0.0.3",
+    "manifest_version": 2,
+    "description": "Faceburgace by Beardface",
+    "icons": {
+        "128": "icons/icon128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+            "<all_urls>"
+            ],
+            "js": [
+                "scripts/jquery.js",
+                "scripts/content_script.js",
+                "scripts/boostrap-3_3_5.js"
+            ],
+            "css": [ "css/boostrap-3_3_5.css" ]
+        }
+    ],
+    "background": {
+        "scripts": [ 
+            "scripts/background.js",
+            "scripts/jquery.js",
+            "scripts/boostrap-3_3_5.js"
+         ],
+         "css": [ "css/boostrap-3_3_5.css" ],
+         "persistant": true
+        
+    },
+    "content_security_policy": "script-src 'self' http://localhost; object-src 'self' http://localhost",
+    "incognito": "split",
+    "offline_enabled": false,
+    "permissions": [
+        "tabs",
+        "<all_urls>",
+        "http://localhost/*"
+    ],
+    "web_accessible_resources": [
+        "manifest.json"
+    ]
+}

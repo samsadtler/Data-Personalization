@@ -22,6 +22,7 @@ chrome.tabs.getSelected(null, function(tab) {
 	chrome.pageAction.show(tab.id);
 });
 
+
 /*Send request to current tab when page action is clicked*/
 chrome.pageAction.onClicked.addListener(function(tab) {
 	chrome.tabs.getSelected(null, function(tab) {
@@ -29,7 +30,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 			//Selected tab id
 			tab.id,
 			//Params inside a object data
-			{callFunction: "toggleSidebar"}, 
+			{callFunction: "toggleSidebar", selectedText}, 
 			//Optional callback function
 			function(response) {
 				console.log(response);

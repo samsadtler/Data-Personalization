@@ -16,7 +16,6 @@ function handleRequest(request,sender, sendResponse) {
 	console.log("trying to handle your request")
 	if (request.callFunction == "toggleSidebar"){
 		console.log('i want to toggle your bar')
-		// toggleSidebar();
 	}
 }
 chrome.extension.onRequest.addListener(handleRequest);
@@ -36,20 +35,24 @@ function toggleSidebar(dataAppend) {
 		console.log('open the sidebar!')
 		var sidebar = document.createElement('div');
 		sidebar.id = "mySidebar";
-		console.log('dataAppend = '+dataAppend);
+		console.log('dataAppend = '+ dataAppend);
+		return true
 		sidebar.innerHTML = 
-		'<div>'+dataAppend+'</div>';
-		sidebar.style.cssText = "\
-			position:fixed;\
-			top:0px;\
-			left:0px;\
-			width:30%;\
-			height:100%;\
-			background:white;\
-			box-shadow:inset 0 0 1em black;\
-			z-index:999999;\
-		";
-		document.body.appendChild(sidebar);
-		sidebarOpen = true;
+			'<div>'+"I'm gonna append your data "+dataAppend+'</div>';
+				sidebar.style.cssText = "\
+					position:fixed;\
+					top:0px;\
+					left:0px;\
+					width:30%;\
+					height:100%;\
+					background:white;\
+					box-shadow:inset 0 0 1em black;\
+					z-index:999999;\
+				";
+			document.body.appendChild(sidebar);
+
+			sidebarOpen = true;
+
+
 	}
 }

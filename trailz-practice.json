@@ -1,0 +1,57 @@
+
+{
+ 	"_id": {
+        "$oid": "563a13593e23e937046ef3c8"
+    },
+	"trailEntry" : {
+		"title": "peanut butter and jelly",
+		"steps": [{
+			"stepSchema": {
+				 "_id": {
+                	"$oid": "563666c0416fa21e0dabad64"
+            	},
+				"title": "Doughnuts",
+				"text": "4 Krispy Kreme doughnuts, halved 1/2 cup peanut butter, smooth or crunchy, 1/4 cup Nutella, 4 tablespoons apricot all-fruit spread, 8 slices thick-cut bacon, cooked until crisp, halved",
+				"note": "still need to try this",
+				"favicon": "http://ak-hdl.buzzfed.com/static/enhanced/terminal05/2012/4/2/0/enhanced-buzz-29448-1333341217-138.jpg",
+				"tags": ["sandwiches", "childhood", "lunch", "ITP", "peanut butter"],
+				"url": "http://www.buzzfeed.com/vdlr/56-peanut-butter-and-jelly-recipes-44qs"
+				},
+			"stepSchema": {
+				"_id": {
+                	"$oid": "563666c0416fa21e0dabad72"
+            	},
+				"title": "Peanut Butter and Honey",
+				"text": "The best sandwich in the world only second to Peanut Butter and Nutella",
+				"note": "when I was a child this was my favorite type of sandwich",
+				"favicon": "http://images.media-allrecipes.com/userphotos/250x250/341172.jpg",
+				"tags": ["sandwiches", "childhood", "lunch", "honey", "peanut butter"],
+				"url": "http://allrecipes.com/recipe/199631/peanut-butter-and-honey-sandwich/"
+				},
+			"stepSchema": {
+				"_id": {
+                	"$oid": "563666c0416fa21e0dabad21"
+            	},
+				"title": "Mishmash",
+				"text": "Still Making Peanut and Jelly",
+				"note": "basic",
+				"favicon": "http://ak-hdl.buzzfed.com/static/enhanced/terminal05/2012/4/2/0/enhanced-buzz-29448-1333341217-138.jpg",
+				"tags": ["sandwiches", "childhood", "lunch", "ITP", "peanut butter"],
+				"url": "http://www.wikihow.com/Make-a-Peanut-Butter-and-Honey-Sandwich"
+				},
+			"stepSchema": {
+				"_id": {
+                	"$oid": "563666c0416fa21e0dabad63"
+            	},
+				"title": "Recipe",
+				"text": "This really isn't one",
+				"note": "still need to try this",
+				"favicon": "http://ak-hdl.buzzfed.com/static/enhanced/web03/2012/4/2/1/enhanced-buzz-25920-1333343776-18.jpg",
+				"tags": ["sandwiches", "childhood", "lunch", "ITP", "peanut butter"],
+				"url": "http://www.buzzfeed.com/vdlr/56-peanut-butter-and-jelly-recipes-44qs"
+				}
+		}],	
+		"dateAdded": {"$date": "2015-11-03T19:36:41.671Z"},
+		"dateAccessed": {"$date": "2015-11-03T19:36:41.671Z"} 
+	}
+}

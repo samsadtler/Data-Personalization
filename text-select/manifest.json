@@ -1,11 +1,14 @@
 {
     "manifest_version": 2,
-    "name":"Simple Highlighter",
+    "name":"Context Trail",
     "version": "0.01",
 
     "content_scripts": [{ 
             "matches": ["<all_urls>"],                  
-            "js":["contentscript.js"]
+            "js":[
+                "contentscript.js",
+                "jquery-2.1.4.min.js"
+            ]
         }],
 
      "background": {

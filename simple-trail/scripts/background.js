@@ -1,19 +1,69 @@
-function saveText(e){
-    console.log('this is where you save some text')
-    e.preventDefault();
-
-}
+var currentTrail;
+var localhost = 'http://sudosubdocs.herokuapp.com'
 
 chrome.runtime.onConnect.addListener(function(port) {
-  console.assert(port.name == "knockknock");
+  console.assert(port.name == "trailpath");
   port.onMessage.addListener(function(msg) {
-    if (msg.joke == "Knock knock"){
-    	port.postMessage({question: "Who's there?"});
-		console.log("in background 1");
+    if (msg.trail == "add trail"){
+      console.log("add trail" + JSON.stringify(msg.data));
+      jQuery.ajax({
+        url : localhost + '/api/create/trail',
+        dataType : 'json',
+        type : 'POST',
+        // we send the data in a data object (with key/value pairs)
+        data : msg.data,
+        success : function(response){
+            if(response.status=="OK"){
+                // success
+                console.log('create a trail please, but seriously you promised = '+response);
+                // re-render the map
+                port.postMessage({"status": "Ok"});
+                // renderTrailMap();
+                // now, clear the input fields
+                jQuery("#addTrail input").val('');
+            }
+            else {
+                alert("something went wrong");
+            }
+        },
+        error : function(err){
+            // do error checking
+            port.postMessage({"status": "error" });
+            alert("something went wrong");
+            console.error(err);
+        }
+      }); 
+
+      // prevents the form from submitting normally
+      // port.postMessage({status: "Ok" });
+		
+
 	}  		
-    else if (msg.answer == "Madame"){
-    	port.postMessage({question: "Madame who?"});
-  		console.log("in background 2");
+    else if (msg.display == "display trail"){
+    	jQuery.ajax({
+        url : localhost + '/api/get/trail',
+        dataType : 'json',
+        success : function(response) {
+            var trail = response.trail;
+            console.log("is response empty? " + jQuery.isEmptyObject({response}));  
+            console.log("ajax response.trail = "+ response.trail);
+            // now, render the animal image/data
+            port.postMessage({"status": "Ok", res: trail});
+        },
+        error : function(err){
+        // do error checking
+        console.log("something went wrong");
+        console.error(err);
+        }
+    })
+
+
+
+      
+  		console.log("display trail");
+
+
+
   	}
     else if (msg.answer == "Madame... Bovary"){
     	port.postMessage({question: "I don't get it."});
@@ -26,8 +76,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 
 
 // CUSTOM JS FILE //
-var currentTrail;
-var localhost = 'http://sudosubdocs.herokuapp.com'
+
 
 function init() {
   renderTrailMap();
@@ -35,34 +84,9 @@ function init() {
 
 // add form button event
 // // Needs to be on content script side to make html calls
-// jQuery("#add-trail").submit(function(e){
-//     console.log('submitting once');
-//     // first, let's pull out all the values
-//     // the name form field value
-//     var trailTitle = jQuery("#trailTitle").val();
-//     var title = jQuery("#title").val();
-//     var tags = jQuery("#tags").val();
-//     var text = jQuery("#text").val();
-//     var url = jQuery("#url").val();
-
-
-//     // make sure we have a location
-//     // if(!location || location=="") return alert('We need a location!');
+// function addTrail(data){
       
-//     var data = {
-//         trailTitle: trailTitle,
-//         title: title,
-//         text: text,
-//         url: url,
-//         tags: tags
-//     };
-
 //     console.log("Object to be created in the DB = " + JSON.stringify(data));
-
-
-
-//     // e.preventDefault();
-//     // return;
 //     // POST the data from above to our API create route
 //       jQuery.ajax({
 
@@ -94,7 +118,7 @@ function init() {
 //       // prevents the form from submitting normally
 //       e.preventDefault();
 //       return false;
-// });
+// };
 
 
 // add form button event
@@ -158,16 +182,11 @@ function renderTrailMap() {
         url : localhost + '/api/get/trail',
         dataType : 'json',
         success : function(response) {
-            console.log(response);
-            console.log("ajax response but I want a response object :-( = " + response);
-            console.log("is response empty? " + jQuery.isEmptyObject({response}));  
             var trail = response.trail;
+            console.log("is response empty? " + jQuery.isEmptyObject({response}));  
             console.log("ajax response.trail = "+ response.trail);
             // now, render the animal image/data
-  
-            // renderTrail(trail);
-    
-
+            renderTrail(trail);
         },
         error : function(err){
         // do error checking
@@ -176,6 +195,7 @@ function renderTrailMap() {
         }
     })
 };
+
 
 // edit form button event
 // when the form is submitted (with a new animal edit), the below runs

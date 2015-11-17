@@ -1,20 +1,6 @@
 //------------------DOC READY-------------------//
 var site;
-var localhost = 'sudosubdocs.herokuapp.com'
-
-var port = chrome.runtime.connect({name: "knockknock"});
-
-port.postMessage({joke: "Knock knock"});
-port.onMessage.addListener(function(msg) {
-  if (msg.question == "Who's there?"){
-    port.postMessage({answer: "Madame"});
-    console.log("in content");
-}
-  else if (msg.question == "Madame who?")
-    port.postMessage({answer: "Madame... Bovary"});
-});
-
-
+var port = chrome.runtime.connect({name: "trailpath"});
 
 $(document).ready(function(){
     var host = window.location.hostname;
@@ -26,236 +12,76 @@ $(document).ready(function(){
     var htmlToAdd = 
         '<div class="col-md-4 trail">'+
             '<h1 class="title">'+host+'</h1>'+
-            '<div id="trail-holder"></div>'+
+            '<div id="trail-holder">'+
+
+            '</div>'+
             '<div id="step-holder"></div>'+
-            '<button type="button" id="selected-text" onclick="saveText(event)">Save Text</button>'+
-            '<button type="button" id="add-trail" onclick="saveText(event)">Add Trail</button>'+
+            '<button type="button" id="display-trail">Display Trail</button>'+
+            '<button type="button" id="add-trail">Add Trail</button>'+
         '</div>';
 
     jQuery('.sidebar-holder').prepend(htmlToAdd);
 
-    init();
-
 });
 
-
-
-
-
-function saveText(e){
-    console.log('this is where you save some text')
-    e.preventDefault();
-
-}
-
-// CUSTOM JS FILE //
-var currentTrail;
-
-function init() {
-  renderTrailMap();
-}
-
-// add form button event
-// when the form is submitted (with a new animal), the below runs
-jQuery("#add-trail").submit(function(e){
+$('body').on('click', '#display-trail', function(e){
+    displayTrail();
+});
+$('body').on('click', '#add-trail', function(e){
     console.log('submitting once');
+    var pageURL = window.location.href; 
+    var host = window.location.hostname;
     // first, let's pull out all the values
     // the name form field value
-    var trailTitle = jQuery("#trailTitle").val();
-    var title = jQuery("#title").val();
-    var tags = jQuery("#tags").val();
-    var text = jQuery("#text").val();
-    var url = jQuery("#url").val();
-
-
-    // make sure we have a location
-    // if(!location || location=="") return alert('We need a location!');
-      
+    // var trailTitle = jQuery("#trailTitle").val();
+    // var title = jQuery("#title").val();
+    // var tags = jQuery("#tags").val();
+    // var text = jQuery("#text").val();
+    // var url = jQuery("#url").val();
     var data = {
-        trailTitle: trailTitle,
-        title: title,
-        text: text,
-        url: url,
-        tags: tags
+        trailTitle: "First Trail",
+        title: host,
+        text: "text",
+        url: pageURL,
+        tags: "tags"
     };
 
     console.log("Object to be created in the DB = " + JSON.stringify(data));
-
-
-
-      // e.preventDefault();
-    // return;
-    // POST the data from above to our API create route
-      jQuery.ajax({
-
-        url : localhost + '/api/create/trail',
-        dataType : 'json',
-        type : 'POST',
-        // we send the data in a data object (with key/value pairs)
-        data : data,
-        success : function(response){
-            if(response.status=="OK"){
-                // success
-                console.log('create a trail please, but seriously you promised = '+response);
-                // re-render the map
-                renderTrailMap();
-                // now, clear the input fields
-                jQuery("#addTrail input").val('');
-            }
-            else {
-                alert("something went wrong");
-            }
-        },
-        error : function(err){
-            // do error checking
-            alert("something went wrong");
-            console.error(err);
-        }
-      }); 
-
       // prevents the form from submitting normally
       e.preventDefault();
+      addTrail(data);
       return false;
 });
 
-
-// add form button event
-// when the form is submitted (with a new animal), the below runs
-jQuery("#addStep").submit(function(e){
-    console.log('addStep submitting once');
-    // first, let's pull out all the values
-    // the name form field value
-    var title = jQuery("#step-title").val();
-    var tags = jQuery("#step-tags").val();
-    var text = jQuery("#step-text").val();
-    var url = jQuery("#step-url").val();
-
-    var data = {
-        title: title,
-        text: text,
-        tags: tags,
-        url: url,
-        trailId: currentTrail
-    };
-
-    console.log("Object to be created in the DB = " + JSON.stringify(data));
-
-    // POST the data from above to our API create route
-      jQuery.ajax({
-
-        url : '/api/create/step',
-        dataType : 'json',
-        type : 'POST',
-        // we send the data in a data object (with key/value pairs)
-        data : data,
-        success : function(response){
-            if(response.status=="OK"){
-                // // success
-                // console.log('create a trail please, but seriously you promised = '+response);
-                // // re-render the map
-                // renderTrailMap();
-                // now, clear the input fields
-                jQuery("#addStep input").val('');
-                jQuery("#addStep").hide();
-                jQuery("#step-submit").hide();
-                renderTrailMap();
-            }
-            else {
-                alert("something went wrong");
-            }
-        },
-        error : function(err){
-            // do error checking
-            alert("something went wrong");
-            console.error(err);
+function addTrail(data){
+    port.postMessage({"trail": "add trail", "data": data});
+    port.onMessage.addListener(function(msg) {
+        if (msg.status == "Ok"){
+            console.log ("status returned success on posting to server");
+            port.postMessage(
+                {request: "thanks"}
+                );
+            console.log("in content");
         }
-      }); 
+      else if (msg.question == "Madame who?")
+        port.postMessage({"answer": "Madame... Bovary"});
+    });
+}
 
-      // prevents the form from submitting normally
-      e.preventDefault();
-      return false;
-});
-    
-function renderTrailMap() {
-    console.log("render that shit");
-    jQuery.ajax({
-        url : localhost + '/api/get/trail',
-        dataType : 'json',
-        success : function(response) {
-            console.log(response);
-            console.log("ajax response but I want a response object :-( = " + response);
-            console.log("is response empty? " + jQuery.isEmptyObject({response}));  
-            var trail = response.trail;
-            console.log("ajax response.trail = "+ response.trail);
-            console.log("render away!");
-            // now, render the animal image/data
-            renderTrail(trail);
-            // renderSteps(trail);
+function displayTrail(){
+        port.postMessage({"display": "display trail"});
+        port.onMessage.addListener(function(msg) {
+            if (msg.status == "Ok"){
+                console.log ("status returned success on returned to server");
+                console.log ("now render msg.response --> "+ msg.res);
+                renderTrail(msg.res);
+            }
+          else if (msg.question == "Madame who?")
+            port.postMessage({"answer": "Madame... Bovary"});
+        });
+}
 
-        },
-        error : function(err){
-        // do error checking
-        console.log("something went wrong");
-        console.error(err);
-        }
-    })
-};
 
-// edit form button event
-// when the form is submitted (with a new animal edit), the below runs
-// jQuery("#editForm").submit(function(e){
-
-//     // first, let's pull out all the values
-//     // the name form field value
-//     var title = jQuery("#edit-title").val();
-//     var text = jQuery("#edit-text").val();
-//     var tags = jQuery("#edit-tags").val();
-//     var url = jQuery("#edit-url").val();
-//     var id = jQuery("#edit-id").val();
-
-//     // make sure we have a location
-
-     
-//   console.log(id);
-      
-//     // POST the data from above to our API create route
-//   jQuery.ajax({
-//     url : '/api/update/trail/'+id,
-//     dataType : 'json',
-//     type : 'POST',
-//     // we send the data in a data object (with key/value pairs)
-//     data : {
-//         title: title,
-//         text: text,
-//         tags: tags,
-//         url: url
-//     },
-//     success : function(response){
-//         if(response.status=="OK"){
-//             // success
-//             console.log(response);
-//             // re-render the map
-//             renderTrailMap();
-//             // now, close the modal
-//             $('#editModal').modal('hide')
-//             // now, clear the input fields
-//             jQuery("#editForm input").val('');
-//         }
-//         else {
-//             alert("something went wrong");
-//         }
-//     },
-//     error : function(err){
-//         // do error checking
-//         alert("something went wrong");
-//         console.error(err);
-//     }
-//   }); 
-
-//     // prevents the form from submitting normally
-//   e.preventDefault();
-//   return false;
-// });
 
 function renderSteps(steps){
 
@@ -280,6 +106,8 @@ function renderSteps(steps){
 
     }
 }
+
+//after the display function has been called render the response from the background script to the page
 function renderTrail(trails){
 
     // first, make sure the #animal-holder is empty
@@ -312,56 +140,12 @@ function renderTrail(trails){
 
     }
 }
-// jQuery('#editModal').on('show.bs.modal', function (e) {
-//   // let's get access to what we just clicked on
-//   var clickedButton = e.relatedTarget;
-//   // now let's get its parent
-//     var parent = jQuery(clickedButton).parent();
 
-//   // now, let's get the values of the pet that we're wanting to edit
-//   // we do this by targeting specific spans within the parent and pulling out the text
-//   var title = $(parent).find('.title').text();
-//   var text = $(parent).find('.text').text();
-//   // var note = $(parent).find('.note').text();
-//   var tags = $(parent).find('.tags').text();
-//   var url = $(parent).find('.url').attr('src');
-//   // var location = $(parent).find('.location').text();
-//   var id = $(parent).find('.id').text();
 
-//   // now let's set the value of the edit fields to those values
-//     jQuery("#edit-title").val(title);
-//     jQuery("#edit-text").val(text);
-//     // jQuery("#edit-note").val(note);
-//     jQuery("#edit-tags").val(tags);
-//     jQuery("#edit-url").val(url);
-//     // jQuery("#edit-location").val(location);
-//     jQuery("#edit-id").val(id);
+function saveText(e){
+    console.log('this is where you save some text')
+    e.preventDefault();
 
-// })
-
-function addStep(event){
-    console.log('the trail id to add a step to is ' + event.target.id);
-    currentTrail = event.target.id;
-    jQuery('#addStep').show();
-    jQuery('#step-submit').show();
 }
 
 
-function deleteStep(event){
-    var targetedId = event.target.id;
-    console.log('the trail to delete is ' + targetedId);
-
-    // now, let's call the delete route with AJAX
-    jQuery.ajax({
-        url : '/api/delete/trail/'+targetedId,
-        dataType : 'json',
-        success : function(response) {
-            // now, let's re-render the steps
-
-            renderTrailMap();
-
-        }
-    })
-
-    event.preventDefault();
-}

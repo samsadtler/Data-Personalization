@@ -35,7 +35,8 @@
     "permissions": [
         "tabs",
         "<all_urls>",
-        "http://localhost/*"
+        "http://localhost/*",
+        "contextMenus"
     ],
     "web_accessible_resources": [
         "manifest.json"

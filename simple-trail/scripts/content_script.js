@@ -27,6 +27,25 @@ $(document).ready(function(){
     jQuery('.sidebar-holder').prepend(htmlToAdd);
 
 });
+ port.postMessage({"popup": "ready for popup"});
+    port.onMessage.addListener(function(msg) {
+        if (msg.Tab == "open tab"){
+            displayTrail();
+        }
+    });
+
+
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if(request.message == "clicked_button_in_popup") {
+            console.log("display trailz!!!!")
+            // this is where you add the function to open the tab
+            displayTrail();
+        }
+        chrome.runtime.sendMessage({"message":"open_new_tab"})
+})
+
 
 $('body').on('click', '#display-trail', function(e){
     displayTrail();

@@ -29,6 +29,11 @@
          "persistant": true
         
     },
+    "browser_action":{
+        "default_title":"Trailz",
+        "default_popup":"html/popup.html"
+    },
+    
     "content_security_policy": "script-src 'self' http://localhost; object-src 'self' http://localhost",
     "incognito": "split",
     "offline_enabled": false,

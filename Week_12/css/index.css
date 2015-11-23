@@ -1,0 +1,20 @@
+body{
+	background-color: #89C4F4;
+	font-style: white;
+	color: white;
+}
+
+.inline{
+	display: inline;
+}
+
+.shadow {
+ -webkit-box-shadow: 0 0 6px 4px gray;
+   -moz-box-shadow: 0 0 6px 4px gray;
+        box-shadow: 0 0 6px 4px gray;
+}
+
+img{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}

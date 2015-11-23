@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+	<title>Week 10: Trailz Final Update</title>
+</head>
+<body >
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<h1> Trail With A Z </h1>
+			<h2> What data did you decide to work with? </h2>
+			<p>Working with Cole Orloff we decided to focus on user created bookmarks and tags generated from a users current website. Personal data which rarely sees the light of day. Trail with a z: making your bookmarks useful by surfacing bookmarks which are relevant to the current page you’re on.</p>
+			<h2>Why were you interested in this data?</h2>
+			<p>We are interested in this data because we want to explore the ways in which familiar information could be used to reinforce and guide a user towards learning and retaining new information on the web.  We are also tired of the current system which leaves our data in folders. The current system is paying homage to a physical book and cabinet structure, paying little attention to the flexibility of computers ability to reference content through links and there by having information in two (or more) places at once. By having a database were are able to create custom searches for each unique page a user visits customizing their experience each time.</p>
+
+			<h2>What were your key design considerations?</h2>
+			<p>Since we wanted to start with making bookmarks proactive we needed to interact with a user in their native experience. While they were searching on the online. First, we needed to understand where the user was contextually. This meant that we needs to make a chrome extension which could capture and react to the content on the page. This lead us to start considering ways of showing the bookmarked information while not entirely distracting the users. We decided to add a modal interface which would be shown on any website and then tucked away as needed. By having cards for each stored bookmark we were also able to visually separate each piece of content so that it is quickly viewable.</p>
+
+			<h2>What are some of the key technology processes you used? What was interesting or tricky?</h2>
+			<p>There are three main technologies that we used to enable our site. The first is Heroku where we hosted our server and Mongoose database and create a custom Trailz api. This allowed us to share and store information with a chrome extension. The chrome extension was used to write data to each webpage and access the content, like domain name, selected text and site title. We also used the Chrome extension as a means to communicate with the third piece of technology, the Alchemy api. The Alchemy api, takes a url input and returns relevant tags for a website. When a users arrives at a website, the Chrome extension sends the url to alchemy and returns relevant tags which are then used to search the Heroku app database against relevant entries. When an entry is found it returns that to the page of the chrome extension. The three hardest parts of this project were figuring our who each of the components of the server, chrome extension, and user experience worked together. The first breakthrough came when we finished the Trailz api, which allowed for to us to start working on the chrome extension. Next, we had to figure out how the Chrome extension worked because there are essentially three parts of most extensions. First, is the content script which is created for each instance of a website. It is where we are able to inject and retrieve HTML, Javascript, and CSS on any given page. Then there is the background script which needs to constantly be communicating with the content script. It is also where we make ajax calls to Alchemy and the Trailz api. The hardest part was understanding how the two scripts communicated with each other and what each of them could be used for. After we learned that the content script had to be used to inject CSS on a page, we learned that once content is on the page it is likely to start interfering with what already exists. This is problematic because suddenly our user experience was having a websites CSS injected into it.</p>
+
+			<h2>What are the key takeaways for yourself or for your target audience? What did you want them to get from your project?</h2>
+			<p>My key takeaways are around how the technologies all work together. It really has been liberating to understand both the front end and backend of web development. The goal of this project still remains to make the information at our fingertips more useful and timely. While we still have a aways to go from the development side, having had this experience of integrating everything together I believe we are well on our way to accomplishing our goals.</p>
+			<h2>Where else could you see this project going?</h2>
+			<p>We still need to continue to improve the user experience and the information we are saving and returning to our users.</p>
+
+			</p>
+			<iframe src="https://docs.google.com/presentation/d/1hMMN2EV7U1kd2VE5h1-1t6rYmBN1S00vNJ6Z-rdqq_Q/embed?start=false&loop=false&delayms=30000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+		</div>
+	</div>
+
+</body>
+</html>
